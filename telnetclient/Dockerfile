@@ -29,11 +29,11 @@ RUN apt-get install vim acl sudo telnet ssh netcat nfs-common cron -y
 #install dependencies for systemd and syslog
 RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
 
-COPY telnet.sh /home/telsvr/telnet.sh
+COPY telnet.sh /home/telnetclt/telnet.sh
 
-RUN chmod +x /home/telsvr/telnet.sh 
+RUN chmod +x /home/telnetclt/telnet.sh 
 
-RUN (crontab -l 2>/dev/null; echo "*/5 * * * * (./home/telsvr/telnet.sh) 2>&1 | logger -t mycron") | crontab -
+RUN (crontab -l 2>/dev/null; echo "*/5 * * * * bash /home/telnetclt/telnet.sh >> /home/telnetclt/telnetlog 2>&1") | crontab -
 
 VOLUME [ "/tmp", "/run", "/run/lock" ]
 # Remove unnecessary units
