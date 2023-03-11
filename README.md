@@ -29,3 +29,9 @@ $ cd ../telnetsvr
 docker build -t ttelnetsvr . 
 
 docker run -d --name telnetsvr --hostname telnetsvr.netsec-docker.isi.jhu.edu --add-host telnetsvr.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host -p 2303:23 -p 2202:22 --cpus=1 ttelnetsvr:latest 
+
+$ cd ../telnetclient 
+
+docker build -t ttelnetclt . 
+
+docker run -d --name telnetclt --hostname telnetclt.netsec-docker.isi.jhu.edu --add-host telnetclt.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host -p 2305:23 -p 2204:22 --cpus=1 ttelnetclt:latest 
