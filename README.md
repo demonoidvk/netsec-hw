@@ -12,13 +12,13 @@ $ git clone https://github.com/demonoidvk/netsec-hw.git
 
 $ unzip apiserver.zip
 
-$ cd gamesvr 
+$ cp -r Tetris-AI/ gamesvr/. && cd gamesvr 
 
 $ docker build -t tgamesvr . 
 
 $ sudo docker run -d --name gamesvr --hostname gamesvr.netsec-docker.isi.jhu.edu --add-host gamesvr.netsec-docker.isi.jhu.edu:127.0.1.2 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host -p 2323:23 -p 2222:22 -p 4040:8080 --cpus=1 tgamesvr:latest 
 
-$ cd ../apisvr 
+$ cd .. && cp -r apiserver/ apisvr/. && cd apisvr 
 
 $ docker build -t tapisvr . 
 
