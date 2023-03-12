@@ -54,6 +54,8 @@ RUN echo 'telsvr:passwd' | chpasswd
 
 RUN systemctl enable cron
 
+RUN echo "NWSEC{NETSEC_GOT_ME_HOOKED}" >> /home/telsvr/flag.txt
+
 # Finished!
 RUN echo $'\n\
 * Container is ready, run it using $ docker run -d --name termsvr --hostname jhedid-termsvr.netsec.isi.jhu.edu --add-host jhedid-termsvr.netsec.isi.jhu.edu:127.0.1.1 --dns 172.16.0.10 --dns-search netsec.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host -p 2323:23 -p 2222:22 --cpus=1 ttermsvr:latest \n\
