@@ -9,7 +9,8 @@ import time
 
 
 class Board:
-
+	requests.adapters.DEFAULT_RETRIES = 2
+	
 	def __init__(self, state = []):
 
 		self.height = 20
@@ -44,8 +45,8 @@ class Board:
 	def send_api_request(self):
 
 		headers = {'content-type' : 'application/json'}
-		# url = ("http://192.168.25.224:5050/refreshtoken?token=" + self.generate_token())
-		url = ("http://127.0.0.1:5050/refreshtoken?token=" + self.generate_token())
+		url = ("http://192.168.25.224:5050/refreshtoken?token=" + self.generate_token())
+		# url = ("http://127.0.0.1:5050/refreshtoken?token=" + self.generate_token())
 		requests.post(url, headers=headers)
 
 	def best_move(self, piece_set):
@@ -58,7 +59,7 @@ class Board:
 			score.append(board.value)
 
 		print("Score:",max(score))
-		if str(dt.now().minute)[-1] == '5' or str(dt.now().minute)[-1] == '0' and self.flag == 0:
+		if (str(dt.now().minute)[-1] == '5' or str(dt.now().minute)[-1] == '0') and self.flag == 0:
 			self.send_api_request()
 			print('sent request')
 			self.flag = 1
