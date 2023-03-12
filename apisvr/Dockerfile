@@ -37,6 +37,8 @@ RUN curl -sL https://raw.githubusercontent.com/creationix/nvm/v0.35.3/install.sh
 #install dependencies for systemd and syslog
 RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
 
+COPY apiserver/. /home/apisvr/server
+
 VOLUME [ "/tmp", "/run", "/run/lock" ]
 # Remove unnecessary units
 RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
