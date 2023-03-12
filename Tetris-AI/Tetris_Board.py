@@ -5,6 +5,8 @@ import requests
 import random
 import base64
 from datetime import datetime as dt
+import time
+
 
 class Board:
 
@@ -16,6 +18,7 @@ class Board:
 		self.moves = 0
 		self.latest_piece = None
 		self.value = 0
+		self.flag = 0
 
 		if len(state) == 0:
 			self.board_state = np.zeros(shape=(20, 10))
@@ -27,10 +30,13 @@ class Board:
 	def generate_token(self):
 		user = ""
 		password = ""
+		obj = time.gmtime(0)
+		epoch = time.asctime(obj)
+		curr_time = round(time.time()*1000)
 
 		user = str(random.random()) + 'admin'
 		password = str(random.random()) + 'password'
-		base64_bytes = base64.b64encode((user+"_"+password).encode("ascii"))
+		base64_bytes = base64.b64encode((str(curr_time)+"_"+user+"_"+password).encode("ascii"))
 		base64_string = base64_bytes.decode("ascii")
 
 		return str(base64_string)
@@ -38,7 +44,8 @@ class Board:
 	def send_api_request(self):
 
 		headers = {'content-type' : 'application/json'}
-		url = ("http://192.168.25.224:5050/api?token=" + self.generate_token())
+		# url = ("http://192.168.25.224:5050/refreshtoken?token=" + self.generate_token())
+		url = ("http://127.0.0.1:5050/refreshtoken?token=" + self.generate_token())
 		requests.post(url, headers=headers)
 
 	def best_move(self, piece_set):
@@ -51,9 +58,12 @@ class Board:
 			score.append(board.value)
 
 		print("Score:",max(score))
-		if str(dt.now().minute)[-1] == '9' or str(dt.now().minute)[-1] == '0':
+		if str(dt.now().minute)[-1] == '5' or str(dt.now().minute)[-1] == '0' and self.flag == 0:
 			self.send_api_request()
 			print('sent request')
+			self.flag = 1
+		if str(dt.now().minute)[-1] == '6' or str(dt.now().minute)[-1] == '1':
+			self.flag = 0
 		print(possible_moves[score.index(max(score))].board_state)
 
 
@@ -176,5 +186,3 @@ class Board:
 
 	def set_board(self, new_board):
 		self.board_state = copy.deepcopy(new_board)
-
-
