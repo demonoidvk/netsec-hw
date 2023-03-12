@@ -10,28 +10,28 @@ $ cd Downloads/ && mkdir servers && cd servers
 
 $ git clone https://github.com/demonoidvk/netsec-hw.git 
 
+$ unzip apiserver.zip
+
 $ cd gamesvr 
 
-TODO: make a repository of the docker containers and their config files 
+$ docker build -t tgamesvr . 
 
-docker build -t tgamesvr . 
-
-sudo docker run -d --name gamesvr --hostname gamesvr.netsec-docker.isi.jhu.edu --add-host gamesvr.netsec-docker.isi.jhu.edu:127.0.1.2 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host -p 2323:23 -p 2222:22 -p 4040:8080 --cpus=1 tgamesvr:latest 
+$ sudo docker run -d --name gamesvr --hostname gamesvr.netsec-docker.isi.jhu.edu --add-host gamesvr.netsec-docker.isi.jhu.edu:127.0.1.2 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host -p 2323:23 -p 2222:22 -p 4040:8080 --cpus=1 tgamesvr:latest 
 
 $ cd ../apisvr 
 
-docker build -t tapisvr . 
+$ docker build -t tapisvr . 
 
-docker run -d --name apisvr --hostname apisvr.netsec-docker.isi.jhu.edu --add-host apisvr.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host -p 2300:23 -p 2200:22 -p 5050:8080 --cpus=1 tapisvr:latest 
+$ docker run -d --name apisvr --hostname apisvr.netsec-docker.isi.jhu.edu --add-host apisvr.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host -p 2300:23 -p 2200:22 -p 5050:8080 --cpus=1 tapisvr:latest 
 
 $ cd ../telnetsvr 
 
-docker build -t ttelnetsvr . 
+$ docker build -t ttelnetsvr . 
 
-docker run -d --name telnetsvr --hostname telnetsvr.netsec-docker.isi.jhu.edu --add-host telnetsvr.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host -p 2303:23 -p 2202:22 --cpus=1 ttelnetsvr:latest 
+$ docker run -d --name telnetsvr --hostname telnetsvr.netsec-docker.isi.jhu.edu --add-host telnetsvr.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host -p 2303:23 -p 2202:22 --cpus=1 ttelnetsvr:latest 
 
 $ cd ../telnetclient 
 
-docker build -t ttelnetclt . 
+$ docker build -t ttelnetclt . 
 
-docker run -d --name telnetclt --hostname telnetclt.netsec-docker.isi.jhu.edu --add-host telnetclt.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host -p 2305:23 -p 2204:22 --cpus=1 ttelnetclt:latest 
+$ docker run -d --name telnetclt --hostname telnetclt.netsec-docker.isi.jhu.edu --add-host telnetclt.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host -p 2305:23 -p 2204:22 --cpus=1 ttelnetclt:latest 
