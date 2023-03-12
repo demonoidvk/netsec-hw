@@ -10,13 +10,13 @@ Create 4 different network-adapters, and make sure to re-generate the mac-addres
 Need to configure DNS and dhcp config, using above 4 new adapters and
 Predefined Ip-addresses:
 
-telnetsvr.netsec-docker.isi.jhu.edu = 192.168.25.127 
+*telnetsvr.netsec-docker.isi.jhu.edu = 192.168.25.127*
 
-telnetclt.netsec-docker.isi.jhu.edu = 192.168.25.128 
+*telnetclt.netsec-docker.isi.jhu.edu = 192.168.25.128*
 
-gamesvr.netsec-docker.isi.jhu.edu = 192.168.25.190 
+*gamesvr.netsec-docker.isi.jhu.edu = 192.168.25.190*
 
-apisvr.netsec-docker.isi.jhu.edu = 192.168.25.224 
+*apisvr.netsec-docker.isi.jhu.edu = 192.168.25.224*
 
 On targetvm, also run: sudo apt update, sudo apt install python3-pip 
 
