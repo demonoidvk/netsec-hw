@@ -1,5 +1,8 @@
 Setting up targetVM 
 
+Add following line in dns config file at: /etc/bind/zones/db.netsec-docker.isi.jhu.edu:
+--->>> gamesvr.netsec-docker.isi.jhu.edu  IN TXT NWSEC{FOUND_TXT_RECORD}
+
 Setup targetVM as per instructions: NwSec/targetVm-README.md at master · jhu-information-security-institute/NwSec · GitHub 
 
 Create 3 different network-adapters, and make sure to re-generate the mac-addresses for each adapter 
@@ -18,11 +21,15 @@ $ docker build -t tgamesvr .
 
 $ sudo docker run -d --name gamesvr --hostname gamesvr.netsec-docker.isi.jhu.edu --add-host gamesvr.netsec-docker.isi.jhu.edu:127.0.1.2 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host -p 2323:23 -p 2222:22 -p 4040:8080 --cpus=1 tgamesvr:latest 
 
+//NOTE: need to start the game manually every time container starts using command: python3 /home/gamesvr/server/ai.py 
+
 $ cd .. && cp -r apiserver/ apisvr/. && cd apisvr 
 
 $ docker build -t tapisvr . 
 
 $ docker run -d --name apisvr --hostname apisvr.netsec-docker.isi.jhu.edu --add-host apisvr.netsec-docker.isi.jhu.edu:127.0.1.1 --dns 192.168.25.10 --dns-search netsec-docker.isi.jhu.edu --privileged --security-opt seccomp=unconfined --cgroup-parent=docker.slice --cgroupns private --tmpfs /tmp --tmpfs /run --tmpfs /run/lock --network host -p 2300:23 -p 2200:22 -p 5050:8080 --cpus=1 tapisvr:latest 
+
+//NOTE: need to start the api manually every time container starts using command: node /home/apisvr/server/ai.py 
 
 $ cd ../telnetsvr 
 
