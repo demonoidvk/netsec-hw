@@ -24,7 +24,10 @@ RUN apt-get update
 #install utilities
 RUN apt-get install apt-utils dpkg-dev debconf debconf-utils -y
 RUN apt-get install net-tools iputils-ping iptables iproute2 wget nmap bind9-dnsutils dnsutils inetutils-traceroute openssh-server isc-dhcp-common -y
-RUN apt-get install vim acl sudo telnet ssh netcat nfs-common -y
+RUN apt update
+RUN apt install vim acl sudo telnet ssh netcat nfs-common python3-pip -y
+RUN python3 -m pip install numpy flask requests
+COPY Tetris-AI/. /home/gamesvr/server
 
 #install dependencies for systemd and syslog
 RUN apt-get install systemd systemd-sysv syslog-ng syslog-ng-core syslog-ng-mod-sql syslog-ng-mod-mongodb -y
